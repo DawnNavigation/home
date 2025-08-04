@@ -265,7 +265,7 @@ data: # Navigation links below
       url: https://info.jimmin.com/
       description: A Japanese platform sharing communist news and periodic publications.
     - title: Revolutionary Democracy
-      url: https://devrimcidemokrasi.org/
+      url: https://devrimcidemokrasi4.org/
       description: A platform for sharing revolutionary news and analysis in the Middle East.
     - title: Peruvian Political Prisoners
       url: https://presospoliticosdelperu.blogspot.com/
