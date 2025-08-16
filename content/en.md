@@ -106,7 +106,7 @@ data: # Navigation links below
       url: https://materialjournal.net/
       description: A publication focusing on revolutionary themes.
     - title: European News Center
-      url: https://www.avrupahaber11.org/
+      url: https://www.avrupahaber12.org/
       description: A news website sharing insights on European revolutionary movements.
     - title: Boiyempo Blog
       url: https://blogdaboitempo.com.br/
@@ -1930,6 +1930,9 @@ data: # Navigation links below
         - title: "DSA Liberation Caucus"
           url: "https://www.liberationcaucus.org/"
           description: "Liberation is a Marxist-Leninist-Maoist caucus in Democratic Socialists of America."
+        - title: "DSA Libertarian Socialist Caucus"
+          url: "https://dsa-lsc.org/"
+          description: "The Libertarian Socialist Caucus is an organization of members of the Democratic Socialists of America who believe that libertarian socialist values are the fullest embodiment of this democratic socialist vision."
         - title: "Freedom Road Socialist Organization"
           url: "https://frso.org/"
           description: "American organization."

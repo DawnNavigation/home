@@ -100,7 +100,7 @@
       url: https://materialjournal.net/
       description: 
     - title: 欧洲新闻中心
-      url: https://www.avrupahaber11.org/
+      url: https://www.avrupahaber12.org/
       description: 
     - title: BOIYEMPO 博客
       url: https://blogdaboitempo.com.br/
@@ -1924,6 +1924,9 @@
         - title: DSA-解放派
           url: https://www.liberationcaucus.org/
           description: 美国民主社会主义者党中的马列毛主义派别
+        - title: DSA-自由社会主义派
+          url: https://dsa-lsc.org/
+          description: 美国民主社会主义者党中的自由社会主义派系
         - title: 自由之路社会主义组织
           url: https://frso.org/
           description: 美国组织
