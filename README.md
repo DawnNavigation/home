@@ -35,6 +35,14 @@ fork from https://github.com/oulh/nav/
    
 6. pull request
 
+## Cloudflare Pages 部署
+
+这个仓库可以直接作为 Cloudflare Pages 的 Hugo 静态站点来源。推荐设置如下：
+
+- Build command: `hugo --gc --minify`
+- Build output directory: `public`
+- Environment variable: 如需自定义域名，请把 `hugo.toml` 里的 `baseURL` 改成对应站点地址
+
 ## 附：webstack.yml
 
 可以复制以下配置，编辑 [webstack.yml](https://github.com/oulh/nav/blob/main/data/webstack.yml) 原有的内容，修改完可以问 gpt 你改的对不对。

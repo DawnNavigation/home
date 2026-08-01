@@ -6,7 +6,7 @@
 <title>{{ .Site.Title }} - {{ .Params.title }}</title>
 <meta name="theme-color" content="#2C2E2F" />
 <meta name="keywords" content="{{ .Site.Params.keywords }}">
-<meta name="description" content="{{ .Site.Params.Description }}">
+<meta name="description" content="{{ .Site.Params.description }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="">
 <meta property="og:title" content="">
@@ -66,9 +66,8 @@
                         </li> 
                     {{ end }}                 
                     {{ end }}
-                    <li class="submit-tag">
                     {{ if .Params.edit.enable }}
-                    <li>
+                    <li class="submit-tag">
                         <a href="{{ .Params.edit.url }}" target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-edit fa-fw"></i>
                             <span class="tooltip-blue">在线编辑</span>
@@ -98,10 +97,10 @@
             </li> 
             <!-- 天气 end -->
       </ul>
-        {{ if .Site.Params.Github.enable }}
+        {{ if .Site.Params.github.enable }}
         <ul class="user-info-menu right-links list-inline list-unstyled">
             <li class="hidden-sm hidden-xs">
-                <a href="{{ .Site.Params.Github.url }}" target="_blank" title="Git Repo"><i class="fa fa-code"></i></a>
+                <a href="{{ .Site.Params.github.url }}" target="_blank" title="Git Repo"><i class="fa fa-code"></i></a>
             </li>
         </ul>
         {{ end }}
@@ -256,7 +255,7 @@
         <p style="font-size:11px">键盘：Ctrl+F 开关，<strong>↑</strong> 和 <strong>↓</strong> 选择，Enter 访问</p>
     </div>
     <script>var rootPath = '../'</script>
-    </div id="overlay"> 
+    </div>
 <script type="text/javascript">
     $(document).ready(function() {
         <!-- 黑暗和明亮模式 START -->

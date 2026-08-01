@@ -6,7 +6,7 @@
 <title>{{ .Site.Title }} - {{ .Params.title }}</title>
 <meta name="theme-color" content="#2C2E2F" />
 <meta name="keywords" content="{{ .Site.Params.keywords }}">
-<meta name="description" content="{{ .Site.Params.Description }}">
+<meta name="description" content="{{ .Site.Params.description }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="">
 <meta property="og:title" content="">
@@ -68,9 +68,8 @@
                         </li> 
                     {{ end }}
                     {{ end }}
-                    <li class="submit-tag">
                     {{ if .Site.Params.edit.enable }}
-                    <li>
+                    <li class="submit-tag">
                         <a href="{{ .Site.Params.edit.url }}" target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-edit fa-fw"></i>
                             <span class="tooltip-blue">edit</span>
