@@ -356,17 +356,3 @@ input[type="button"],input[type="submit"]{background-color:#222;border:0;-webkit
 .black .siteico{background:#222}
 .black .posts-nav{color:rgba(221,221,221,.2)}
 .black .input-group-addon{color:#ddd;background:#26282a;border-color:#26282a}
-
-/* Sidebar language switch */
-.sidebar-language-switch{display:flex;align-items:center;gap:10px;margin:16px 30px 4px;padding:5px 6px 5px 12px;border:1px solid #3b3e40;border-radius:10px;background:#27292a;color:#979898;transition:border-color 180ms ease,background-color 180ms ease}
-.sidebar-language-switch:hover{border-color:#4a4d50;background:#292b2c}
-.language-switch-icon{flex:0 0 auto;font-size:14px;color:#777b7e}
-.language-switch-options{display:grid;grid-template-columns:1fr 1fr;flex:1;padding:2px;border-radius:7px;background:#202223}
-.language-switch-option{min-width:0;padding:5px 8px;border:0;border-radius:5px;background:transparent;color:#7f8386;font-size:12px;font-weight:600;line-height:16px;cursor:pointer;transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease}
-.language-switch-option:hover{color:#d8d9da}
-.language-switch-option:focus{outline:2px solid #55acee;outline-offset:2px}
-.language-switch-option.is-active{background:#3a3d3f;color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-.language-name-short{display:none}
-.sidebar-menu .sidebar-language-switch+.main-menu{margin-top:12px}
-@media screen and (min-width:768px){.sidebar-menu.collapsed .sidebar-language-switch{gap:0;margin:12px auto 4px;padding:3px;width:58px;border-radius:8px}.sidebar-menu.collapsed .language-switch-icon{display:none}.sidebar-menu.collapsed .language-switch-option{padding:4px 2px;font-size:11px}.sidebar-menu.collapsed .language-name-full{display:none}.sidebar-menu.collapsed .language-name-short{display:inline}}
-@media screen and (max-width:767px){.sidebar-language-switch{margin-top:12px;margin-bottom:2px}}

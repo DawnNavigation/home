@@ -41,18 +41,21 @@
                         </a>
                     </div>
                 </header>
+                {{ partial "sidebar-language-switch.html" . }}
                 <ul id="main-menu" class="main-menu">
                     {{ range .Site.Data.webstack }}
+                    {{ $taxonomyEn := .taxonomy_en | default .taxonomy }}
                     {{ if .list }}
                         <li>
                             <a>
                                <i class="fa {{ .icon }} fa-fw"></i>
-                               <span class="title">{{ .taxonomy }}</span>
+                               <span class="title" data-sidebar-label-zh="{{ .taxonomy }}" data-sidebar-label-en="{{ $taxonomyEn }}" lang="zh-CN">{{ .taxonomy }}</span>
                             </a>
                             <ul>
-                                {{ range .list }}    
+                                {{ range .list }}
+                                {{ $termEn := .term_en | default .term }}
                                 <li>
-                                    <a href="#{{ md5 .term }}" class="smooth">{{ .term }}</a>
+                                    <a href="#{{ md5 .term }}" class="smooth"><span data-sidebar-label-zh="{{ .term }}" data-sidebar-label-en="{{ $termEn }}" lang="zh-CN">{{ .term }}</span></a>
                                 </li>
                                 {{ end }}
                             </ul>
@@ -61,7 +64,7 @@
                         <li>
                             <a href="#{{ md5 .taxonomy }}" class="smooth">
                                <i class="fa {{ .icon }} fa-fw"></i>
-                               <span class="title">{{ .taxonomy }}</span>
+                               <span class="title" data-sidebar-label-zh="{{ .taxonomy }}" data-sidebar-label-en="{{ $taxonomyEn }}" lang="zh-CN">{{ .taxonomy }}</span>
                             </a>
                         </li> 
                     {{ end }}                 
@@ -112,22 +115,25 @@
     {{ if .list }}
         {{ $subicon := .icon }}
         {{ range .list }}
+        {{ $termEn := .term_en | default .term }}
         <!-- {{ .term }} -->
-        <h4 class="text-gray" style="display: inline-block;"><i class="fa {{ $subicon }}" style="margin-right: 27px;" id="{{ md5 .term }}"></i>{{ .term }}</h4>
+        <h4 class="text-gray" style="display: inline-block;"><i class="fa {{ $subicon }}" style="margin-right: 27px;" id="{{ md5 .term }}"></i><span data-language-label-zh="{{ .term }}" data-language-label-en="{{ $termEn }}" lang="zh-CN">{{ .term }}</span></h4>
             <div class="row">
             {{ range .links }}
+                {{ $titleEn := .title_en | default .title }}
+                {{ $descriptionEn := .description_en | default .description }}
                 {{ if .qrcode }}
                 <div class="xe-card col-xs-6 col-sm-4 col-md-3 qrcode geticon">
                     <a href="{{ .url }}" target="_blank" class="xe-widget xe-conversations box2 label-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ .qrcode }}' width='128'>">
                         <div class="xe-comment-entry">
                             <div class="xe-user-img">
                                 <img class="img-circle lazy" src="./images/favicon.png" data-src="{{ .logo }}" onerror="javascript:this.src='./images/favicon.png'" width="40">
-                            </div>
-                            <div class="xe-comment">
-                                <div class="xe-user-name overflowClip_1">
-                                    <strong>{{ .title }}</strong>
                                 </div>
-                                <p class="overflowClip_2">{{ .description }}</p>
+                                <div class="xe-comment">
+                                    <div class="xe-user-name overflowClip_1">
+                                    <strong data-language-label-zh="{{ .title }}" data-language-label-en="{{ $titleEn }}" lang="zh-CN">{{ .title }}</strong>
+                                </div>
+                                <p class="overflowClip_2" data-language-label-zh="{{ .description }}" data-language-label-en="{{ $descriptionEn }}" lang="zh-CN">{{ .description }}</p>
                             </div>
                         </div>
                     </a>
@@ -135,16 +141,16 @@
                 {{ else }}
                 <div class="xe-card col-xs-6 col-sm-4 col-md-3 geticon">
                     <a href="{{ .url }}" target="_blank" class="xe-widget xe-conversations box2 label-info" data-toggle="tooltip" data-placement="bottom" 
-                    title="{{ .description }} {{ .url }}">
+                    title="{{ .description }} {{ .url }}" data-language-title-zh="{{ .description }} {{ .url }}" data-language-title-en="{{ $descriptionEn }} {{ .url }}">
                         <div class="xe-comment-entry">
                             <div class="xe-user-img">
                                 <img class="img-circle lazy" src="./images/favicon.png" data-src="{{ .logo }}" onerror="javascript:this.src='./images/favicon.png'" width="40">
                             </div>
                             <div class="xe-comment">
                                 <div class="xe-user-name overflowClip_1">
-                                    <strong>{{ .title }}</strong>
+                                    <strong data-language-label-zh="{{ .title }}" data-language-label-en="{{ $titleEn }}" lang="zh-CN">{{ .title }}</strong>
                                 </div>
-                                <p class="overflowClip_2">{{ .description }}</p>
+                                <p class="overflowClip_2" data-language-label-zh="{{ .description }}" data-language-label-en="{{ $descriptionEn }}" lang="zh-CN">{{ .description }}</p>
                             </div>
                         </div>
                     </a>
@@ -156,10 +162,13 @@
         <!--END {{ .term }} -->
         {{ end }}
     {{ else }}
+        {{ $taxonomyEn := .taxonomy_en | default .taxonomy }}
         <!-- {{ .taxonomy }} -->
-        <h4 class="text-gray" style="display: inline-block;"><i class="fa {{ .icon }}" style="margin-right: 27px;" id="{{ md5 .taxonomy }}"></i>{{ .taxonomy }}</h4>
+        <h4 class="text-gray" style="display: inline-block;"><i class="fa {{ .icon }}" style="margin-right: 27px;" id="{{ md5 .taxonomy }}"></i><span data-language-label-zh="{{ .taxonomy }}" data-language-label-en="{{ $taxonomyEn }}" lang="zh-CN">{{ .taxonomy }}</span></h4>
             <div class="row">
             {{ range .links }}
+                {{ $titleEn := .title_en | default .title }}
+                {{ $descriptionEn := .description_en | default .description }}
                 {{ if .qrcode }}
                 <div class="xe-card col-xs-6 col-sm-4 col-md-3 qrcode geticon">
                     <a href="{{ .url }}" target="_blank" class="xe-widget xe-conversations box2 label-info" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<img src='{{ .qrcode }}' width='128'>">
@@ -169,9 +178,9 @@
                             </div>
                             <div class="xe-comment">
                                 <div class="xe-user-name overflowClip_1">
-                                    <strong>{{ .title }}</strong>
+                                    <strong data-language-label-zh="{{ .title }}" data-language-label-en="{{ $titleEn }}" lang="zh-CN">{{ .title }}</strong>
                                 </div>
-                                <p class="overflowClip_2">{{ .description }}</p>
+                                <p class="overflowClip_2" data-language-label-zh="{{ .description }}" data-language-label-en="{{ $descriptionEn }}" lang="zh-CN">{{ .description }}</p>
                             </div>
                         </div>
                     </a>
@@ -179,16 +188,16 @@
                 {{ else }}
                 <div class="xe-card col-xs-6 col-sm-4 col-md-3 geticon">
                     <a href="{{ .url }}" target="_blank" class="xe-widget xe-conversations box2 label-info" data-toggle="tooltip" data-placement="bottom" 
-                    title="{{ .description }} {{ .url }}">
+                    title="{{ .description }} {{ .url }}" data-language-title-zh="{{ .description }} {{ .url }}" data-language-title-en="{{ $descriptionEn }} {{ .url }}">
                         <div class="xe-comment-entry">
                             <div class="xe-user-img">
                                 <img class="img-circle lazy" src="./images/favicon.png" data-src="{{ .logo }}" onerror="javascript:this.src='./images/favicon.png'" width="40">
                             </div>
                             <div class="xe-comment">
                                 <div class="xe-user-name overflowClip_1">
-                                    <strong>{{ .title }}</strong>
+                                    <strong data-language-label-zh="{{ .title }}" data-language-label-en="{{ $titleEn }}" lang="zh-CN">{{ .title }}</strong>
                                 </div>
-                                <p class="overflowClip_2">{{ .description }}</p>
+                                <p class="overflowClip_2" data-language-label-zh="{{ .description }}" data-language-label-en="{{ $descriptionEn }}" lang="zh-CN">{{ .description }}</p>
                             </div>
                         </div>
                     </a>
@@ -203,10 +212,12 @@
     {{ if .friend }}
     <div class="friendlink" style="margin-bottom:-40px">
         <div class="panel">
-        {{ range .friend }}            
+        {{ range .friend }}
+            {{ $friendTitleEn := .title_en | default .title }}
+            {{ $friendDescriptionEn := .description_en | default .description }}
             <!-- <h4 class="text-gray mb-4"> -->
             <!-- <i class="fa fa-bookmark" id="friendlink" style="margin-right:10px"></i>友情链接</h4> -->                
-            <a href="{{ .url }}" rel="noopener" title="{{ .description }}" target="_blank">{{ .title }}</a>
+            <a href="{{ .url }}" rel="noopener" title="{{ .description }}" target="_blank" data-language-title-zh="{{ .description }}" data-language-title-en="{{ $friendDescriptionEn }}" data-language-label-zh="{{ .title }}" data-language-label-en="{{ $friendTitleEn }}" lang="zh-CN">{{ .title }}</a>
         {{ end }}
         </div> 
     </div>
@@ -517,6 +528,7 @@
 </script>
 <script type='text/javascript' src='./js/bootstrap.min.js?ver=3.4.1'></script>
 <script type='text/javascript' src='./js/TweenMax.min.js?ver=1.13.1'></script>
+<script type='text/javascript' src='./js/sidebar-language.js?ver=1.0.0'></script>
 <script type='text/javascript' src='./js/nav.js?ver=2.0.0'></script>
 <script type='text/javascript' src='./js/lazyload.min.js?ver=2.0.0'></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
