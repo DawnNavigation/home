@@ -1,301 +1,145 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>WebStack 多语言管理器</title>
-    <!-- 保持原有样式不变，增加 select 样式 -->
-    <style>
-        body { font-family: sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; background: #f0f2f5; padding-top: 80px; }
-        .header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: fixed; top: 0; left: 0; right: 0; 
-            background: #fff; padding: 15px 20px; 
-            z-index: 100; border-bottom: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            max-width: 1000px; margin: 0 auto;
-        }
-        .btn { cursor: pointer; padding: 8px 15px; border: none; border-radius: 4px; color: white; font-weight: bold; }
-        .btn-save { background: #10b981; }
-        .btn-add { background: #3b82f6; }
-        .btn-del { background: #ef4444; font-size: 12px; padding: 4px 8px; margin-left: 5px; }
-        
-        .container-box { background: white; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .taxonomy-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eee; }
-        .taxonomy-input { font-size: 1.2em; font-weight: bold; border: 1px solid #ddd; padding: 5px; width: 200px; }
-        
-        .link-item { display: flex; gap: 10px; padding: 10px; border-bottom: 1px solid #f3f3f3; align-items: center; background: #fafafa; margin-bottom: 5px;}
-        .link-item:hover { background: #f0f9ff; }
-        .input-group { display: flex; flex-direction: column; flex: 1; gap: 5px; }
-        .input-row { display: flex; gap: 10px; }
-        input[type="text"] { padding: 6px; border: 1px solid #ddd; border-radius: 4px; }
-        .inp-title { width: 150px; font-weight: bold; }
-        .inp-url { flex: 1; color: #666; font-family: monospace; }
-        .inp-desc { width: 100%; color: #888; font-size: 0.9em; }
-
-        .sub-group { margin-left: 20px; border-left: 3px solid #e5e7eb; padding-left: 15px; margin-top: 15px; }
-        .term-header { font-weight: bold; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: #4b5563; }
-
-        /* 文件选择器样式 */
-        .file-select {
-            padding: 8px 12px;
-            font-size: 14px;
-            border-radius: 4px;
-            border: 2px solid #3b82f6;
-            background-color: #f0f9ff;
-            font-weight: bold;
-            color: #3b82f6;
-            cursor: pointer;
-            margin-right: 15px;
-        }
-
-        .site-counter {
-            background-color: #333; color: #fff; padding: 5px 10px; border-radius: 4px; font-size: 12px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DawnNav 数据库管理</title>
+  <style>
+    :root { color-scheme:light; --blue:#2563eb; --green:#059669; --red:#dc2626; --line:#e2e8f0; --muted:#64748b; --bg:#f1f5f9; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:#172033; font:14px/1.5 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+    button,input,select,textarea { font:inherit; }
+    button { cursor:pointer; }
+    .toolbar { position:sticky; top:0; z-index:20; display:flex; flex-wrap:wrap; align-items:center; gap:10px; padding:14px max(18px,calc((100vw - 1180px)/2)); background:rgba(255,255,255,.96); border-bottom:1px solid var(--line); box-shadow:0 2px 12px rgba(15,23,42,.06); backdrop-filter:blur(10px); }
+    .toolbar h1 { margin:0 auto 0 0; font-size:19px; }
+    .counter { padding:5px 9px; border-radius:999px; background:#e2e8f0; color:#334155; font-size:12px; }
+    .token { width:190px; padding:8px 10px; border:1px solid var(--line); border-radius:7px; }
+    .btn { padding:8px 12px; border:0; border-radius:7px; background:#475569; color:white; font-weight:650; }
+    .btn:hover { filter:brightness(.94); }
+    .btn-primary { background:var(--blue); }
+    .btn-save { background:var(--green); }
+    .btn-danger { background:var(--red); }
+    .btn-small { padding:5px 8px; font-size:12px; }
+    main { width:min(1180px,calc(100% - 28px)); margin:22px auto 80px; }
+    .notice { margin-bottom:16px; padding:11px 14px; border:1px solid #bfdbfe; border-radius:9px; background:#eff6ff; color:#1e40af; }
+    .category { margin:0 0 16px; border:1px solid var(--line); border-radius:12px; background:white; box-shadow:0 2px 8px rgba(15,23,42,.04); overflow:hidden; }
+    .category summary { display:flex; align-items:center; gap:10px; padding:14px 16px; cursor:pointer; background:#f8fafc; border-bottom:1px solid var(--line); }
+    .category summary::-webkit-details-marker { display:none; }
+    .category summary::before { content:"▸"; color:var(--muted); }
+    .category[open] summary::before { content:"▾"; }
+    .category-name { flex:1; font-weight:750; font-size:16px; }
+    .category-body { padding:16px; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .grid-3 { grid-template-columns:2fr 2fr 1fr; }
+    label { display:grid; gap:4px; color:#475569; font-size:12px; }
+    input,select,textarea { width:100%; padding:8px 9px; border:1px solid #cbd5e1; border-radius:7px; background:white; color:#172033; }
+    textarea { min-height:64px; resize:vertical; }
+    input:focus,select:focus,textarea:focus { outline:2px solid #bfdbfe; border-color:var(--blue); }
+    .section { margin:14px 0; padding:13px; border-left:4px solid #93c5fd; border-radius:7px; background:#f8fafc; }
+    .section-head,.actions { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+    .section-head strong { flex:1; }
+    .link { position:relative; margin:9px 0; padding:12px; border:1px solid var(--line); border-radius:9px; background:white; }
+    .link .grid { padding-right:76px; }
+    .link-actions { position:absolute; top:12px; right:12px; display:flex; gap:5px; }
+    .empty { padding:24px; text-align:center; color:var(--muted); border:1px dashed #cbd5e1; border-radius:9px; }
+    .loading { padding:60px; text-align:center; color:var(--muted); }
+    #toast { position:fixed; right:18px; bottom:18px; z-index:50; max-width:360px; padding:11px 14px; border-radius:9px; background:#172033; color:white; box-shadow:0 8px 28px rgba(15,23,42,.24); opacity:0; transform:translateY(12px); pointer-events:none; transition:.2s; }
+    #toast.show { opacity:1; transform:none; }
+    #toast.error { background:#991b1b; }
+    @media (max-width:760px) { .toolbar h1 { width:100%; } .token { flex:1; } .grid,.grid-3 { grid-template-columns:1fr; } .link .grid { padding-right:0; padding-top:34px; } }
+  </style>
 </head>
 <body>
+  <header class="toolbar">
+    <h1>DawnNav 数据库管理</h1>
+    <span id="counter" class="counter">正在读取…</span>
+    <input id="token" class="token" type="password" autocomplete="current-password" placeholder="管理令牌（本机可留空）" aria-label="管理令牌">
+    <button class="btn" type="button" onclick="loadData()">重新加载</button>
+    <button class="btn btn-primary" type="button" onclick="addCategory()">新增分类</button>
+    <button class="btn btn-save" type="button" onclick="saveData()">保存到数据库</button>
+  </header>
+  <main>
+    <div class="notice">这里的保存操作会立即更新 SQL 数据库。首页刷新后即可看到变化，不需要重新运行 Hugo。</div>
+    <div id="app" class="loading">正在加载数据库…</div>
+  </main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script>
+    let data = [];
+    const app = document.getElementById("app");
+    const tokenInput = document.getElementById("token");
+    tokenInput.value = sessionStorage.getItem("dawnnav-admin-token") || "";
+    tokenInput.addEventListener("input", () => sessionStorage.setItem("dawnnav-admin-token", tokenInput.value));
 
-    <div class="header">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <h2 style="margin:0;">📚 数据管理</h2>
-            <span id="siteCounter" class="site-counter">统计中...</span>
+    function h(value) { return String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]); }
+    function modeOf(category) { return Array.isArray(category.list) ? "list" : Array.isArray(category.friend) ? "friend" : "links"; }
+    function linksOf(category, sectionIndex) { return sectionIndex !== null ? category.list[sectionIndex].links : modeOf(category) === "friend" ? category.friend : category.links; }
+    function linkCountForCategory(category) { return category.list ? category.list.reduce((n, section) => n + (section.links || []).length, 0) : (category.links || category.friend || []).length; }
+    function linkCount() { return data.reduce((total, category) => total + linkCountForCategory(category), 0); }
+    function updateCounter() { document.getElementById("counter").textContent = `${data.length} 个分类 · ${linkCount()} 条链接`; }
+
+    function linkEditor(link, categoryIndex, sectionIndex, linkIndex) {
+      const args = `${categoryIndex},${sectionIndex === null ? "null" : sectionIndex},${linkIndex}`;
+      return `<div class="link">
+        <div class="link-actions"><button class="btn btn-small" type="button" onclick="moveLink(${args},-1)" title="上移">↑</button><button class="btn btn-small btn-danger" type="button" onclick="deleteLink(${args})">删除</button></div>
+        <div class="grid">
+          <label>中文标题<input value="${h(link.title)}" oninput="updateLink(${args},'title',this.value)"></label>
+          <label>英文标题<input value="${h(link.title_en)}" oninput="updateLink(${args},'title_en',this.value)"></label>
+          <label style="grid-column:1/-1">网址<input value="${h(link.url)}" oninput="updateLink(${args},'url',this.value)" placeholder="https://"></label>
+          <label>中文描述<textarea oninput="updateLink(${args},'description',this.value)">${h(link.description)}</textarea></label>
+          <label>英文描述<textarea oninput="updateLink(${args},'description_en',this.value)">${h(link.description_en)}</textarea></label>
+          <label>Logo（可选）<input value="${h(link.logo)}" oninput="updateLink(${args},'logo',this.value)"></label>
+          <label>二维码（可选）<input value="${h(link.qrcode)}" oninput="updateLink(${args},'qrcode',this.value)"></label>
         </div>
+      </div>`;
+    }
 
-        <div style="display: flex; align-items: center;">
-            <!-- 🆕 文件切换下拉菜单 -->
-            <select id="fileSelector" class="file-select" onchange="switchFile(this.value)">
-                <option value="cn">🇨🇳 中文主站 (webstack.yml)</option>
-                <option value="en">🇺🇸 English Site (en.md)</option>
-            </select>
+    function renderLinks(links, categoryIndex, sectionIndex) {
+      return links.length ? links.map((link, linkIndex) => linkEditor(link, categoryIndex, sectionIndex, linkIndex)).join("") : `<div class="empty">暂无链接</div>`;
+    }
 
-            <button class="btn btn-add" onclick="addNewTaxonomy()">+ 新增分类</button>
-            <button class="btn btn-save" style="margin-left: 10px;" onclick="saveData()">💾 保存当前文件</button>
+    function renderCategory(category, categoryIndex) {
+      const mode = modeOf(category);
+      let content;
+      if (mode === "list") {
+        content = category.list.map((section, sectionIndex) => `<div class="section">
+          <div class="section-head"><strong>子分类 ${sectionIndex + 1}</strong><button class="btn btn-small btn-danger" type="button" onclick="deleteSection(${categoryIndex},${sectionIndex})">删除子分类</button></div>
+          <div class="grid"><label>中文名称<input value="${h(section.term)}" oninput="updateSection(${categoryIndex},${sectionIndex},'term',this.value)"></label><label>英文名称<input value="${h(section.term_en)}" oninput="updateSection(${categoryIndex},${sectionIndex},'term_en',this.value)"></label></div>
+          ${renderLinks(section.links || [], categoryIndex, sectionIndex)}
+          <button class="btn btn-small btn-primary" type="button" onclick="addLink(${categoryIndex},${sectionIndex})">新增链接</button>
+        </div>`).join("") + `<button class="btn btn-primary" type="button" onclick="addSection(${categoryIndex})">新增子分类</button>`;
+      } else {
+        const links = mode === "friend" ? category.friend : category.links;
+        content = renderLinks(links || [], categoryIndex, null) + `<button class="btn btn-primary" type="button" onclick="addLink(${categoryIndex},null)">新增链接</button>`;
+      }
+      const modeLabel = {links:"普通链接",list:"带子分类",friend:"友情链接"}[mode];
+      return `<details class="category" ${categoryIndex === 0 ? "open" : ""}>
+        <summary><span class="category-name">${h(category.taxonomy || "未命名分类")}</span><span>${modeLabel}</span></summary>
+        <div class="category-body">
+          <div class="grid grid-3"><label>中文分类名<input value="${h(category.taxonomy)}" oninput="updateCategory(${categoryIndex},'taxonomy',this.value)"></label><label>英文分类名<input value="${h(category.taxonomy_en)}" oninput="updateCategory(${categoryIndex},'taxonomy_en',this.value)"></label><label>图标<input value="${h(category.icon)}" oninput="updateCategory(${categoryIndex},'icon',this.value)" placeholder="fa-star"></label></div>
+          <div class="actions" style="margin-top:10px"><label style="display:flex;align-items:center;gap:7px">结构<select onchange="changeMode(${categoryIndex},this.value)"><option value="links" ${mode === "links" ? "selected" : ""}>普通链接</option><option value="list" ${mode === "list" ? "selected" : ""}>带子分类</option><option value="friend" ${mode === "friend" ? "selected" : ""}>友情链接</option></select></label><button class="btn btn-small" type="button" onclick="moveCategory(${categoryIndex},-1)">分类上移</button><button class="btn btn-small btn-danger" type="button" onclick="deleteCategory(${categoryIndex})">删除分类</button></div>
+          ${content}
         </div>
-    </div>
+      </details>`;
+    }
 
-    <div id="app">正在加载数据...</div>
+    function render() { updateCounter(); app.className = ""; app.innerHTML = data.length ? data.map(renderCategory).join("") : `<div class="empty">数据库中还没有分类</div>`; }
+    function updateCategory(index, key, value) { data[index][key] = value; updateCounter(); }
+    function updateSection(categoryIndex, sectionIndex, key, value) { data[categoryIndex].list[sectionIndex][key] = value; }
+    function updateLink(categoryIndex, sectionIndex, linkIndex, key, value) { linksOf(data[categoryIndex], sectionIndex)[linkIndex][key] = value; }
+    function addCategory() { data.unshift({ taxonomy:"新分类", taxonomy_en:"New Category", icon:"fa-star", links:[] }); render(); }
+    function deleteCategory(index) { if (confirm("确定删除这个分类及其全部链接吗？")) { data.splice(index, 1); render(); } }
+    function moveCategory(index, direction) { const target=index+direction; if (target<0||target>=data.length) return; [data[index],data[target]]=[data[target],data[index]]; render(); }
+    function changeMode(index, mode) { const category=data[index]; if (linkCountForCategory(category)&&!confirm("切换结构会清空这个分类当前的链接，是否继续？")) { render(); return; } delete category.links; delete category.list; delete category.friend; category[mode]=[]; render(); }
+    function addSection(categoryIndex) { data[categoryIndex].list.push({ term:"新子分类", term_en:"New Section", links:[] }); render(); }
+    function deleteSection(categoryIndex, sectionIndex) { if (confirm("确定删除这个子分类及其全部链接吗？")) { data[categoryIndex].list.splice(sectionIndex,1); render(); } }
+    function addLink(categoryIndex, sectionIndex) { linksOf(data[categoryIndex],sectionIndex).push({ title:"",title_en:"",url:"",description:"",description_en:"" }); render(); }
+    function deleteLink(categoryIndex, sectionIndex, linkIndex) { if (confirm("确定删除这条链接吗？")) { linksOf(data[categoryIndex],sectionIndex).splice(linkIndex,1); render(); } }
+    function moveLink(categoryIndex, sectionIndex, linkIndex, direction) { const links=linksOf(data[categoryIndex],sectionIndex); const target=linkIndex+direction; if(target<0||target>=links.length)return; [links[linkIndex],links[target]]=[links[target],links[linkIndex]]; render(); }
 
-    <script>
-        let globalData = [];
-        let currentFileKey = 'cn'; // 默认为中文
-
-        // 初始化加载
-        loadData('cn');
-
-        // 切换文件
-        function switchFile(key) {
-            currentFileKey = key;
-            const app = document.getElementById('app');
-            app.innerHTML = '<div style="padding:40px; text-align:center; color:#666;">⏳ 正在切换数据文件...</div>';
-            document.getElementById('siteCounter').innerText = "加载中...";
-            loadData(key);
-        }
-
-        // 加载数据
-        function loadData(key) {
-            fetch(`/api/data?key=${key}`)
-                .then(res => {
-                    const totalCount = res.headers.get('X-Total-Count');
-                    if (totalCount !== null) {
-                        const label = key === 'cn' ? 'CN' : 'EN';
-                        document.getElementById('siteCounter').innerHTML = `${label}: <strong>${totalCount}</strong> Sites`;
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    globalData = data || [];
-                    render();
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById('app').innerHTML = `<h3 style="color:red; text-align:center">❌ 加载失败: ${err.message}</h3>`;
-                });
-        }
-
-        // 实时统计与 UI 更新 (包含容错逻辑)
-        function updateCounterUI() {
-            let count = 0;
-            function traverse(items) {
-                if (!Array.isArray(items)) return;
-                items.forEach(item => {
-                    if (!item) return;
-                    if (item.url) count++;
-                    if (item.links) traverse(item.links);
-                    if (item.list) traverse(item.list);
-                });
-            }
-            if (Array.isArray(globalData)) {
-                globalData.forEach(tax => {
-                    if (!tax) return;
-                    if (tax.links) traverse(tax.links);
-                    if (tax.list && Array.isArray(tax.list)) {
-                        tax.list.forEach(term => {
-                            if (!term) return;
-                            if (term.links) traverse(term.links);
-                        });
-                    }
-                });
-            }
-            const label = currentFileKey === 'cn' ? 'CN' : 'EN';
-            document.getElementById('siteCounter').innerHTML = `${label}: <strong>${count}</strong> Sites`;
-        }
-
-        // 渲染主逻辑 (保持不变，只是数据源变了)
-        function render() {
-            const app = document.getElementById('app');
-            app.innerHTML = '';
-            
-            updateCounterUI();
-
-            if (!globalData || globalData.length === 0) {
-                app.innerHTML = '<div style="padding:40px; text-align:center; color:#888;">当前文件为空，请点击右上角“+ 新增分类”开始添加内容。</div>';
-                return;
-            }
-
-            globalData.forEach((tax, taxIdx) => {
-                if (!tax) return;
-
-                const box = document.createElement('div');
-                box.className = 'container-box';
-                
-                let html = `
-                    <div class="taxonomy-header">
-                        <span>分类:</span>
-                        <input class="taxonomy-input" value="${tax.taxonomy || ''}" onchange="updateTax(${taxIdx}, 'taxonomy', this.value)">
-                        <span>图标:</span>
-                        <input type="text" value="${tax.icon || ''}" style="width:80px" placeholder="fa-icon" onchange="updateTax(${taxIdx}, 'icon', this.value)">
-                        <button class="btn btn-del" onclick="delTax(${taxIdx})">删除分类</button>
-                    </div>
-                `;
-
-                if (tax.links) {
-                    html += `<div id="links-${taxIdx}"></div>`;
-                    html += `<button class="btn btn-add" style="margin-top:10px; font-size:12px" onclick="addLink(${taxIdx}, null)">+ 添加链接</button>`;
-                } else if (tax.list) {
-                    html += `<div id="list-${taxIdx}"></div>`;
-                    html += `<button class="btn btn-add" style="margin-top:10px; font-size:12px" onclick="addTerm(${taxIdx})">+ 添加子分类</button>`;
-                } else {
-                    html += `<button class="btn btn-add" onclick="initLinksMode(${taxIdx})">初始化为链接模式</button> 
-                             <button class="btn btn-add" onclick="initListMode(${taxIdx})">初始化为子分类模式</button>`;
-                }
-
-                box.innerHTML = html;
-                app.appendChild(box);
-
-                if (tax.links) renderLinks(tax.links, document.getElementById(`links-${taxIdx}`), taxIdx, null);
-                if (tax.list) renderTerms(tax.list, document.getElementById(`list-${taxIdx}`), taxIdx);
-            });
-        }
-
-        function renderLinks(links, container, taxIdx, termIdx) {
-            if (!Array.isArray(links)) return;
-            links.forEach((link, linkIdx) => {
-                if (!link) return;
-                const row = document.createElement('div');
-                row.className = 'link-item';
-                row.innerHTML = `
-                    <div class="input-group">
-                        <div class="input-row">
-                            <input class="inp-title" placeholder="标题" value="${link.title || ''}" oninput="updateLink(${taxIdx}, ${termIdx}, ${linkIdx}, 'title', this.value)">
-                            <input class="inp-url" placeholder="网址" value="${link.url || ''}" oninput="updateLink(${taxIdx}, ${termIdx}, ${linkIdx}, 'url', this.value)">
-                        </div>
-                        <input class="inp-desc" placeholder="描述" value="${link.description || ''}" oninput="updateLink(${taxIdx}, ${termIdx}, ${linkIdx}, 'description', this.value)">
-                    </div>
-                    <button class="btn btn-del" onclick="delLink(${taxIdx}, ${termIdx}, ${linkIdx})">删</button>
-                `;
-                container.appendChild(row);
-            });
-        }
-
-        function renderTerms(list, container, taxIdx) {
-            if (!Array.isArray(list)) return;
-            list.forEach((termItem, termIdx) => {
-                if (!termItem) return;
-                const termDiv = document.createElement('div');
-                termDiv.className = 'sub-group';
-                termDiv.innerHTML = `
-                    <div class="term-header">
-                        📁 子分类: <input type="text" value="${termItem.term || ''}" onchange="updateTermName(${taxIdx}, ${termIdx}, this.value)">
-                        <button class="btn btn-del" onclick="delTerm(${taxIdx}, ${termIdx})">删除子类</button>
-                    </div>
-                    <div id="term-links-${taxIdx}-${termIdx}"></div>
-                    <button class="btn btn-add" style="font-size:12px; margin-top:5px;" onclick="addLink(${taxIdx}, ${termIdx})">+ 添加链接到此组</button>
-                `;
-                container.appendChild(termDiv);
-                renderLinks(termItem.links || [], document.getElementById(`term-links-${taxIdx}-${termIdx}`), taxIdx, termIdx);
-            });
-        }
-
-        // --- 数据操作逻辑 ---
-        function updateTax(idx, key, val) { globalData[idx][key] = val; }
-        function updateTermName(taxIdx, termIdx, val) { globalData[taxIdx].list[termIdx].term = val; }
-        function updateLink(taxIdx, termIdx, linkIdx, key, val) {
-            if (termIdx === null) globalData[taxIdx].links[linkIdx][key] = val;
-            else globalData[taxIdx].list[termIdx].links[linkIdx][key] = val;
-        }
-        function addLink(taxIdx, termIdx) {
-            const newLink = { title: '', url: '', description: '' };
-            if (termIdx === null) {
-                if(!globalData[taxIdx].links) globalData[taxIdx].links = [];
-                globalData[taxIdx].links.push(newLink);
-            } else {
-                if(!globalData[taxIdx].list[termIdx].links) globalData[taxIdx].list[termIdx].links = [];
-                globalData[taxIdx].list[termIdx].links.push(newLink);
-            }
-            render();
-        }
-        function delLink(taxIdx, termIdx, linkIdx) {
-            if(!confirm('确定删除此链接？')) return;
-            if (termIdx === null) globalData[taxIdx].links.splice(linkIdx, 1);
-            else globalData[taxIdx].list[termIdx].links.splice(linkIdx, 1);
-            render();
-        }
-        function addNewTaxonomy() {
-            globalData.unshift({ taxonomy: 'New Category', icon: 'fa-star', links: [] });
-            render();
-        }
-        function delTax(idx) {
-            if(!confirm('危险：删除分类会清空下面的所有链接！')) return;
-            globalData.splice(idx, 1);
-            render();
-        }
-        function addTerm(taxIdx) {
-            if(!globalData[taxIdx].list) globalData[taxIdx].list = [];
-            globalData[taxIdx].list.push({ term: 'New Sub-Category', links: [] });
-            render();
-        }
-        function delTerm(taxIdx, termIdx) {
-            if(!confirm('确定删除此子分类？')) return;
-            globalData[taxIdx].list.splice(termIdx, 1);
-            render();
-        }
-        function initLinksMode(taxIdx) { globalData[taxIdx].links = []; render(); }
-        function initListMode(taxIdx) { globalData[taxIdx].list = []; render(); }
-
-        // 🆕 保存函数 (发送 currentFileKey)
-        function saveData() {
-            const fileName = currentFileKey === 'cn' ? 'webstack.yml' : 'en.md';
-            
-            fetch('/api/save', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    fileKey: currentFileKey,
-                    data: globalData // 这里发送的永远是数组
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                if(res.success) {
-                    if (res.count) {
-                        const label = currentFileKey === 'cn' ? 'CN' : 'EN';
-                        document.getElementById('siteCounter').innerHTML = `${label}: <strong>${res.count}</strong> Sites`;
-                    }
-                    alert(`✅ 保存成功！${fileName} 已更新。`);
-                }
-                else alert('保存失败: ' + res.error);
-            })
-            .catch(err => alert('保存请求出错: ' + err));
-        }
-    </script>
+    function showToast(message, error=false) { const toast=document.getElementById("toast"); toast.textContent=message; toast.className=error?"show error":"show"; clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>toast.className="",3200); }
+    async function loadData() { app.className="loading"; app.textContent="正在加载数据库…"; try { const response=await fetch("/api/data",{cache:"no-store"}); const body=await response.json(); if(!response.ok)throw new Error(body.error||"读取失败"); data=body; render(); } catch(error) { app.textContent=`读取失败：${error.message}`; showToast(error.message,true); } }
+    async function saveData() { try { const headers={"Content-Type":"application/json"}; if(tokenInput.value)headers["X-Admin-Token"]=tokenInput.value; const response=await fetch("/api/save",{method:"POST",headers,body:JSON.stringify({data})}); const body=await response.json(); if(!response.ok)throw new Error(body.error||"保存失败"); showToast(`已保存 ${body.categories} 个分类、${body.count} 条链接`); updateCounter(); } catch(error) { showToast(error.message,true); } }
+    loadData();
+  </script>
 </body>
 </html>
