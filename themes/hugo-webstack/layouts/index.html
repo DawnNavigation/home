@@ -7,12 +7,16 @@
 <meta name="theme-color" content="#2C2E2F" />
 <meta name="keywords" content="{{ .Site.Params.keywords }}">
 <meta name="description" content="{{ .Site.Params.description }}">
-<meta property="og:type" content="article">
-<meta property="og:url" content="">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
-<meta property="og:image" content="">
-<meta property="og:site_name" content="">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ .Site.Title }}">
+<meta property="og:description" content="{{ .Site.Params.description }}">
+<meta property="og:image" content="{{ "images/og.png" | absURL }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Site.Title }}">
+<meta name="twitter:description" content="{{ .Site.Params.description }}">
+<meta name="twitter:image" content="{{ "images/og.png" | absURL }}">
 <link rel="shortcut icon" href="./images/app-ico.png">
 <link rel="apple-touch-icon" href="./images/app-ico.png">
 <link rel='stylesheet' id='font-awesome-css'  href='./css/font-awesome.min.css?ver=6.5.1' type='text/css' media='all' />
@@ -43,6 +47,7 @@
                 </header>
                 {{ partial "sidebar-language-switch.html" . }}
                 <ul id="main-menu" class="main-menu">
+                    <li data-dynamic-sidebar-start hidden></li>
                     {{ range .Site.Data.webstack }}
                     {{ $taxonomyEn := .taxonomy_en | default .taxonomy }}
                     {{ if .list }}
@@ -69,6 +74,7 @@
                         </li> 
                     {{ end }}                 
                     {{ end }}
+                    <li data-dynamic-sidebar-end hidden></li>
                     {{ if .Site.Params.edit.enable }}
                     <li class="submit-tag">
                         <a href="{{ .Site.Params.edit.url }}" target="_blank" rel="noopener noreferrer">
@@ -111,6 +117,7 @@
 </nav>
 {{ template "search.html" . }}
 <div class="sites-list" style="margin-bottom: 8.5rem;">
+<div data-dynamic-content-start hidden></div>
 {{ range .Site.Data.webstack }}
     {{ if .list }}
         {{ $subicon := .icon }}
@@ -224,6 +231,7 @@
     {{ end }}
     <!-- END 友情链接    -->
 {{ end }}
+<div data-dynamic-content-end hidden></div>
 </div>
             <footer class="main-footer sticky footer-type-1">
                 <div class="foot-button">

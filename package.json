@@ -1,0 +1,16 @@
+{
+  "name": "dawnnav-dynamic",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-sites.js",
+    "db:import": "node scripts/import-webstack.js",
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js"
+  }
+}

@@ -1,5 +1,24 @@
 # 黎明导航
 
+## 动态数据库版本
+
+当前项目支持两种运行方式：直接使用 Hugo 构建静态备用页面，或通过 Node.js + SQLite/D1 运行动态网站。动态模式下，首页每次请求都会读取 SQL，管理页保存后不需要重新构建。
+
+本地启动：
+
+```powershell
+node scripts/import-webstack.js
+node server.js
+```
+
+然后访问：
+
+- 首页：`http://127.0.0.1:3000/`
+- 数据库管理：`http://127.0.0.1:3000/admin.html`
+- 健康检查：`http://127.0.0.1:3000/api/health`
+
+公开部署管理页前，请设置 `ADMIN_TOKEN`。数据库文件默认位于 `storage/webstack.db`，首次启动时会自动从 `data/webstack.yml` 导入初始数据。
+
 **基于 Hugo-Webstack 网址导航网站**
 
 fork from https://github.com/oulh/nav/
