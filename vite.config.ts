@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { sites } from "./build/sites-vite-plugin";
 
-const PLACEHOLDER_DATABASE_ID = "00000000-0000-4000-8000-000000000000";
+const PLACEHOLDER_DATABASE_ID = "1166f8e4-e159-45fa-86e6-96b512a537fa";
 const { d1, r2 } = hostingConfig;
 
 const localBindingConfig = {
