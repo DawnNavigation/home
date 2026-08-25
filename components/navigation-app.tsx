@@ -120,9 +120,9 @@ export function NavigationApp() {
         <section className="hero">
           <div className="hero-grid" aria-hidden="true" />
           <div className="hero-copy">
-            <p className="eyebrow"><span className={`live-dot ${status}`} /> {language === "zh" ? "由 SQL 数据库实时驱动" : "Live from the SQL database"}</p>
-            <h1>{language === "zh" ? <>把值得抵达的地方，<em>留在黎明之前。</em></> : <>Keep the places worth reaching <em>before dawn.</em></>}</h1>
-            <p className="hero-description">{language === "zh" ? "一个克制、双语、可搜索的知识入口。这里的每个分类与链接都来自动态数据库，并可在后台随时更新。" : "A focused, bilingual and searchable knowledge index. Every category and link is loaded live and can be updated from the dashboard."}</p>
+            <p className="eyebrow"><span className={`live-dot ${status}`} /> {language === "zh" ? "由一群满怀理想的人建立" : "Built by a group of idealistic people"}</p>
+            <h1>{language === "zh" ? <>革命死了，<em>革命万岁。</em></> : <> The revolution is dead! <em>Long live the revolution!</em></>}</h1>
+            <p className="hero-description">{language === "zh" ? "一个资源丰富的双语左翼资料库，供各位同志阅览和学习" : "A rich, bilingual and searchable left-wing knowledge base for all comrades to browse and study."}</p>
           </div>
           <div className="hero-stats" aria-label={language === "zh" ? "数据库统计" : "Database statistics"}>
             <div><strong>{status === "ready" ? data.length : "—"}</strong><span>{language === "zh" ? "主题分类" : "Collections"}</span></div>
@@ -188,8 +188,8 @@ export function NavigationApp() {
       </main>
 
       <footer className="footer">
-        <a className="brand footer-brand" href="#top"><span className="brand-sun" aria-hidden="true"><i /></span><span><b>DawnNav</b><small>{language === "zh" ? "寻找、整理、再次抵达。" : "Find, collect, return."}</small></span></a>
-        <p>{language === "zh" ? "Next.js + Cloudflare D1 动态驱动" : "Dynamically powered by Next.js + Cloudflare D1"}</p>
+        <a className="brand footer-brand" href="#top"><span className="brand-sun" aria-hidden="true"><i /></span><span><b>DawnNav</b><small>{language === "zh" ? "黎明将至，红日初升" : "Dawn is approaching, the red sun is rising"}</small></span></a>
+        <p>{language === "zh" ? "你们青年人朝气蓬勃，正在兴旺时期，好像早晨八、九点钟的太阳。希望寄托在你们身上。--毛泽东 " : "You young people, full of vigor and vitality, are in the bloom of life, like the sun at eight or nine in the morning. Our hope is placed on you. The world belongs to you.-- Mao Zedong "}</p>
         <a href="/admin">{language === "zh" ? "管理数据库 →" : "Manage database →"}</a>
       </footer>
     </div>
