@@ -6,6 +6,7 @@ import { SiteLogo } from "@/components/site-logo";
 import { localizeContent } from "@/lib/i18n";
 import type { SiteDetailRecord } from "@/lib/webstack";
 
+
 function hostname(url: string) {
   try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return url; }
 }

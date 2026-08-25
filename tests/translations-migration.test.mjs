@@ -6,6 +6,7 @@ import { DatabaseSync } from "node:sqlite";
 
 const root = path.resolve(import.meta.dirname, "..");
 
+
 test("translations migration preserves legacy link data", () => {
   const db = new DatabaseSync(":memory:");
   try {

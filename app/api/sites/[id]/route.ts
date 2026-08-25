@@ -12,4 +12,5 @@ export async function GET(_request: Request, context: { params: Promise<{ id: st
     console.error(error);
     return Response.json({ error: error instanceof Error ? error.message : "Unable to read site" }, { status: 500 });
   }
+  
 }

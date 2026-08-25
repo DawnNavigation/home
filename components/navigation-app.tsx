@@ -6,6 +6,7 @@ import { SiteLogo } from "@/components/site-logo";
 import { formatMessage, languageOptions, localizeContent, type Language } from "@/lib/i18n";
 import type { LinkItem, LinkSection, WebstackCategory } from "@/lib/webstack";
 
+
 function countCategory(category: WebstackCategory) {
   return (category.links?.length ?? category.friend?.length ?? 0) + (category.list?.reduce((sum, section) => sum + section.links.length, 0) ?? 0);
 }

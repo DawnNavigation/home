@@ -9,6 +9,7 @@ function modeOf(category: WebstackCategory): CategoryMode {
   if (Array.isArray(category.list)) return "list";
   if (Array.isArray(category.friend)) return "friend";
   return "links";
+  
 }
 
 function categoryCount(category: WebstackCategory) {

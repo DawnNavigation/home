@@ -10,6 +10,7 @@ export type Language = (typeof languageOptions)[number]["code"];
 export type TranslationEntry = { title?: string | null; description?: string | null };
 export type TranslationMap = Record<string, TranslationEntry>;
 
+
 const en = {
   language: "Language",
   explore: "Explore",

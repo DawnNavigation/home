@@ -11,6 +11,7 @@ function faviconUrl(url: string) {
   }
 }
 
+
 function initials(title: string) {
   const normalized = title.trim();
   return normalized ? normalized.slice(0, 2).toUpperCase() : "DN";

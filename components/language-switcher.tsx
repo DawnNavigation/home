@@ -5,6 +5,7 @@ import { htmlLanguage, isLanguage, languageOptions, messages, type Language } fr
 
 const STORAGE_KEY = "dawnnav-language";
 
+
 export function useLanguagePreference() {
   const [language, setLanguageState] = useState<Language>("zh");
 

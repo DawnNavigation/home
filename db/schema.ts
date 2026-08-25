@@ -9,6 +9,7 @@ export const categories = sqliteTable("categories", {
   sortOrder: integer("sort_order").notNull().default(0)
 });
 
+
 export const sections = sqliteTable(
   "sections",
   {

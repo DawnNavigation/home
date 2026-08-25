@@ -6,6 +6,7 @@ import { mergeLegacyTranslations, type TranslationEntry, type TranslationMap } f
 
 export type CategoryMode = "links" | "list" | "friend";
 
+
 export interface LinkItem {
   id?: number;
   title: string;
