@@ -45,6 +45,7 @@ export const links = sqliteTable(
     descriptionEn: text("description_en"),
     logo: text("logo"),
     qrcode: text("qrcode"),
+    translations: text("translations"),
     sortOrder: integer("sort_order").notNull().default(0)
   },
   (table) => [
