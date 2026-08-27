@@ -94,6 +94,7 @@ export function NavigationApp() {
         </a>
         <nav className="topnav" aria-label="DawnNav">
           <a href="#explore">{m.explore}</a>
+          <a href="/about/index.html">About</a>
           <a href="/admin">{m.manage}</a>
           <LanguageSwitcher language={language} onChange={setLanguage} compact />
         </nav>
